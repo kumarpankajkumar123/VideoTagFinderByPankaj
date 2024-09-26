@@ -1,6 +1,8 @@
 package com.example.pankajdemo;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,7 +39,7 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
     String MY_KEY = "AIzaSyCrdo85_ezkyP0tMC-rC52Hlpr2qPjD7E8";
     //    private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|v\\/)?)([\\w\\-]+)(\\S+)?$";
     private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu\\.be))(\\/((watch\\?v=|embed\\/|v\\/|shorts\\/)?([\\w\\-]{11}))(\\S*)?)?$";
-    private static final String YOUTUBE_URL_PATTERNBOTH = "^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/.*[?&]v=|youtu\\.be\\/|youtube\\.com\\/shorts\\/)?([\\w\\-]{11})(?:[\\s\\S]*)?$";
+//    private static final String YOUTUBE_URL_PATTERNBOTH = "^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/.*[?&]v=|youtu\\.be\\/|youtube\\.com\\/shorts\\/)?([\\w\\-]{11})(?:[\\s\\S]*)?$";
 
 
     EditText inputVideoUrl;
@@ -47,7 +49,10 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
     ProgressDialog progressDialog;
     private Set<String> selectedTags;
     TextView copy,copyAll,selectAll;
+    private String lastRequestedVideoId = null;
 
+    private long backPressedTime;
+    private Toast backToast;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,12 +94,19 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
                 if (chek) {
                     String videoId = getVideoIdFromUrl(url);
                     Log.e("video id", ":= " + videoId);
-                    if (videoId != null) {
+                    if (videoId != null && !videoId.equals(lastRequestedVideoId)) {
                         recyclerView.setVisibility(View.VISIBLE);
+                        lastRequestedVideoId = videoId;
                         fetchVideoTags(videoId);
 //                        progressDialog.show();
 //                        progressDialog.setTitle("Loading..");
-                    } else {
+                    }
+                    else if (videoId != null) {
+                        // If it's the same video ID, notify the user
+                        recyclerView.setVisibility(View.VISIBLE);
+                        Toast.makeText(VideoTagsGet.this, "Already fetched this URL", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         recyclerView.setVisibility(View.GONE);
                         Toast.makeText(VideoTagsGet.this, "Invalid url", Toast.LENGTH_SHORT).show();
                     }
@@ -263,15 +275,24 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
                 if (response.code() == 200 && response.isSuccessful()) {
                     progressDialog.dismiss();
                     VideoTagResponse videoTagResponse = response.body();
+//                    Log.e("themnails",":="+videoTagResponse.getItems().get(0).getSnippet().getThumbnails().getMedium().getUrl());
                     if (videoTagResponse != null && videoTagResponse.getItems().size() > 0) {
                         // Get the tags from the response
                         VideoTagResponse.Items item = videoTagResponse.getItems().get(0);
+
+//                        List<VideoTagResponse.Items> items = videoTagResponse.getItems();
+
                         if (item.getSnippet() != null && item.getSnippet().getTags() != null) {
                             List<String> tags = item.getSnippet().getTags();
                             // Set the adapter with the tags list
                             tagsAdaptor = new TagsAdaptor(tags,VideoTagsGet.this);
                             recyclerView.setAdapter(tagsAdaptor);
-                        } else {
+                        }
+//                        if(items != null ){
+//                            tagsAdaptor = new TagsAdaptor(getApplicationContext(),items,VideoTagsGet.this);
+//                            recyclerView.setAdapter(tagsAdaptor);
+//                        }
+                        else {
                             recyclerView.setVisibility(View.GONE);
                             Toast.makeText(VideoTagsGet.this, "no data available"+item.getSnippet().getTags(), Toast.LENGTH_SHORT).show();
                         }
@@ -327,4 +348,19 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
     public void onTagUnselected(String tag) {
         Log.d("Tag Unselected", tag);
     }
+
+
+    public void onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            if (backToast != null) backToast.cancel();
+            super.onBackPressed(); // Exit the app
+            return;
+        } else {
+            backToast = Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT);
+            backToast.show();
+        }
+        backPressedTime = System.currentTimeMillis();
+    }
+
+
 }

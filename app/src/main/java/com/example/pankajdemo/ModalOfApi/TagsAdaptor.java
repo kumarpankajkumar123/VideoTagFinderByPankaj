@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.pankajdemo.R;
 
 import java.util.ArrayList;
@@ -21,15 +24,18 @@ import java.util.Set;
 
 public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> {
 
-    //    Context context;
+    Context context;
     List<String> taglist;
+    private List<VideoTagResponse.Items> videoItems;
     //    private final Map<String, Boolean> tagSelectionMap = new HashMap<>();
     private final Set<String> selectedTags = new HashSet<>();
+
 
     private final TagSelectionListener tagSelectionListener;
 
     public interface TagSelectionListener {
         void onTagSelected(String tag);
+
         void onTagUnselected(String tag);
     }
     public TagsAdaptor(List<String> taglist,TagSelectionListener tagSelectionListener) {
@@ -41,6 +47,15 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
         this.tagSelectionListener = tagSelectionListener;
     }
 
+//    public TagsAdaptor(Context context, List<VideoTagResponse.Items> videoItems, TagSelectionListener tagSelectionListener) {
+//        this.context = context;
+//        this.videoItems = videoItems;
+////                for (String tag : taglist) {
+////            tagSelectionMap.put(tag, false); // Initially, no tags are selected
+////        }
+//        this.tagSelectionListener = tagSelectionListener;
+//    }
+
     @NonNull
     @Override
     public TagsAdaptor.myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -51,12 +66,34 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull TagsAdaptor.myViewHolder holder, int position) {
 
+
         String tags = taglist.get(position);
         holder.tags.setText(tags);
+        holder.imageD.setVisibility(View.GONE);
+
+//        VideoTagResponse.Items item = videoItems.get(position);
+//        List<String> tagsN = item.getSnippet().getTags();
+//        if (tagsN != null && !tagsN.isEmpty()) {
+//            holder.tags.setText(tagsN.toString().replaceAll("[\\[\\]]", "")); // Show tags as comma-separated string
+//        } else {
+//            holder.tags.setText("No tags available");
+//        }
+//
+//        String thumbnailUrl = item.getSnippet().getThumbnails().getMedium().getUrl();
+//        if(thumbnailUrl.isEmpty()){
+//            Toast.makeText(context, "url not found", Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            Glide.with(context)
+//                    .load(thumbnailUrl)
+////                .placeholder(R.drawable.placeholder_image) // Set placeholder image until the actual image is loaded
+//                    .into(holder.imageD);
+//        }
 
 //        holder.checkbox.setChecked(tagSelectionMap.get(tags));
         holder.checkbox.setOnCheckedChangeListener(null);
         holder.checkbox.setChecked(selectedTags.contains(tags));
+
 
         holder.itemView.setOnClickListener(v -> {
             if (selectedTags.contains(tags)) {
@@ -106,12 +143,13 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
 
         TextView tags;
         CheckBox checkbox;
+        ImageView imageD;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             tags = itemView.findViewById(R.id.tags);
             checkbox = itemView.findViewById(R.id.checkbox);
-
+            imageD = itemView.findViewById(R.id.imageD);
         }
     }
 }

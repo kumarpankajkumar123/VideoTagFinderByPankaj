@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SplashScreenByPankaj"
+    android:background="#FF0000">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        app:cardUseCompatPadding="false"
+        app:cardCornerRadius="10dp"
+        android:elevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:src="@drawable/welcome"/>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/tags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/amaranth_bold"
+        android:text="TheTagsFinder"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/cards"
+        app:layout_constraintStart_toStartOf="@+id/cards"
+        app:layout_constraintTop_toBottomOf="@+id/cards" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,15 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
+        android:id="@+id/cardM"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:elevation="5dp"
         app:cardCornerRadius="10dp"
-        android:elevation="3dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageCard"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,10 +29,12 @@
                 android:background="@drawable/button_login"
                 android:fontFamily="@font/bayon"
                 android:padding="8dp"
-                android:text="hlo"
+                android:text=""
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="12sp"
                 android:textStyle="bold"
+                android:singleLine="false"
+                android:maxLines="3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -44,5 +47,19 @@
                 app:layout_constraintStart_toEndOf="@+id/tags"
                 app:layout_constraintTop_toTopOf="@+id/tags" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/imageCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/cardM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cardM">
+        <ImageView
+            android:id="@+id/imageD"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@color/black" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
