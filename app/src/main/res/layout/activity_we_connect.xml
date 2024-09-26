@@ -1,0 +1,591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D32F2F"
+    tools:context=".WeConnect">
+
+    <ImageView
+        android:id="@+id/menuIconImage"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/menu_background_color"
+        android:src="@drawable/baseline_menu_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuIconImage">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/welcomeBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="Welcome Back"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/weConnect"/>
+
+            <TextView
+                android:id="@+id/weConnect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:gravity="center"
+                android:text="WeConnect"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginTop="-8dp"
+                android:letterSpacing="0.1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeBack"
+                app:layout_constraintBottom_toTopOf="@id/parentConstraint"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/parentConstraint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/backgroung_linear_layout_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/weConnect"
+                android:layout_marginTop="10dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="0dp"
+                    android:background="@drawable/backgroung_linear_layout_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/firstcardview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="25dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintBottom_toTopOf="@+id/secondCardView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/headingFirst"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:text="CALLINGS"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/headingFirst">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp"
+                                    android:weightSum="4">
+
+                                    <ImageView
+                                        android:id="@+id/serviceReminder"
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/notification_re" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="Service\nReminder"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold" />
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginTop="5dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/phone_mesage_rename" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="Customer\nCall List"
+                                        android:textSize="12sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/pc_rename" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="PSF\nReminder"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginTop="5dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/schedule_rename" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="Booking\nReminder"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/missed_call_re" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="Missed\ncall List"
+                                        android:textSize="12sp" />
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginTop="5dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/no_call_re" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="No turn\n up calls"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="-25dp"
+                        android:background="@drawable/main_bacground_color"
+                        android:elevation="3dp"
+                        android:padding="12dp"
+                        android:src="@drawable/image_phone_top"
+                        app:layout_constraintBottom_toTopOf="@+id/firstcardview"
+                        app:layout_constraintEnd_toEndOf="@+id/firstcardview"
+                        app:layout_constraintStart_toStartOf="@+id/firstcardview"
+                        app:layout_constraintTop_toTopOf="@+id/firstcardview" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/secondCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="25dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/firstcardview">
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/headingSecond"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:text="REPORTS"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/headingSecond">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp"
+                                    android:weightSum="4">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/bell_service_reminder" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="Service\nReminder"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/calendar_re" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:text="Booking\nReminder"
+                                        android:textSize="12sp" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="106dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_marginBottom="25dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:layout_gravity="center"
+                                        android:src="@drawable/missed_call_re" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="-20dp"
+                                        android:gravity="center"
+                                        android:text="PSF"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="-25dp"
+                        android:background="@drawable/main_bacground_color"
+                        android:elevation="3dp"
+                        android:padding="7dp"
+                        android:src="@drawable/report_laptop"
+                        app:layout_constraintBottom_toTopOf="@+id/secondCardView"
+                        app:layout_constraintEnd_toEndOf="@+id/secondCardView"
+                        app:layout_constraintStart_toStartOf="@+id/secondCardView"
+                        app:layout_constraintTop_toTopOf="@+id/secondCardView" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/thirdCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="40dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="25dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/secondCardView">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:id="@+id/headingThird"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:text="QUICK LINKS"
+                                android:textColor="@color/black"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="10dp"
+                                android:orientation="horizontal"
+                                android:weightSum="3"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/headingThird">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="105dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp"
+                                    android:weightSum="4">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="5dp"
+                                        android:src="@drawable/faq_rename" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="FAQ"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="105dp"
+                                    android:layout_marginEnd="10dp"
+
+                                    android:layout_weight="1"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="8dp"
+                                        android:src="@drawable/ios_screenshot" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:text="Application\nTour"
+                                        android:lineSpacingMultiplier="0.7"
+                                        android:textSize="12sp" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="105dp"
+                                    android:layout_weight="1"
+                                    android:layout_marginStart="5dp"
+                                    android:background="@drawable/color_linear_layout"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:padding="15dp">
+
+                                    <ImageView
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/image_background_circular"
+                                        android:padding="10dp"
+                                        android:src="@drawable/templates_rename" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="0dp"
+                                        android:gravity="center"
+                                        android:text="Templates"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="-25dp"
+                        android:background="@drawable/main_bacground_color"
+                        android:elevation="3dp"
+                        android:padding="10dp"
+                        android:src="@drawable/link"
+                        app:layout_constraintBottom_toTopOf="@+id/thirdCardView"
+                        app:layout_constraintEnd_toEndOf="@+id/thirdCardView"
+                        app:layout_constraintStart_toStartOf="@+id/thirdCardView"
+                        app:layout_constraintTop_toTopOf="@+id/thirdCardView" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

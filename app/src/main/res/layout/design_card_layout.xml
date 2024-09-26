@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D32F2F">
+
+    <ImageView
+        android:id="@+id/menuIconImage"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/menu_background_color"
+        android:src="@drawable/baseline_menu_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/welcomeBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Welcome Back"
+        android:fontFamily="@font/roboto"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/menuIconImage" />
+
+    <TextView
+        android:id="@+id/weConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="WeConnect"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeBack" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentConstraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backgroung_linear_layout_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weConnect">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/firstcardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="25dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toTopOf="@+id/secondCardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/headingFirst"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:text="CALLINGS"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/headingFirst">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:weightSum="4">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/bell" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Service\nReminder" />
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/phone" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Customer\nCall List" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/computer" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="PSF\nReminder" />
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/calendar" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Booking\nReminder" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/missed_call" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Missed\ncall List" />
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/communication" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="No turn\n up calls" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="-25dp"
+                android:background="@drawable/image_background_circular"
+                android:padding="5dp"
+                android:src="@drawable/phone_one"
+                app:layout_constraintBottom_toTopOf="@+id/firstcardview"
+                app:layout_constraintEnd_toEndOf="@+id/firstcardview"
+                app:layout_constraintStart_toStartOf="@+id/firstcardview"
+                app:layout_constraintTop_toTopOf="@+id/firstcardview" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/secondCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="25dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/firstcardview">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/headingSecond"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:text="REPORTS"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/headingSecond">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:weightSum="4">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="5dp"
+                                android:src="@drawable/setting" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="Service\nReminder" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/schedule" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Booking\nReminder" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="115dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/missed_call" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="PSF" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="-25dp"
+                android:background="@drawable/image_background_circular"
+                android:padding="10dp"
+                android:src="@drawable/search"
+                app:layout_constraintBottom_toTopOf="@+id/secondCardView"
+                app:layout_constraintEnd_toEndOf="@+id/secondCardView"
+                app:layout_constraintStart_toStartOf="@+id/secondCardView"
+                app:layout_constraintTop_toTopOf="@+id/secondCardView" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/thirdCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="25dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/secondCardView">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/headingThird"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:text="QUICK LINKS"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/headingThird">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp"
+                            android:weightSum="4">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="5dp"
+                                android:src="@drawable/faq" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="FAQ" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/schedule" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Application\nTour" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="105dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/color_linear_layout"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="15dp">
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/image_background_circular"
+                                android:padding="10dp"
+                                android:src="@drawable/missed_call" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Templates" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="-25dp"
+                android:background="@drawable/image_background_circular"
+                android:padding="10dp"
+                android:src="@drawable/link"
+                app:layout_constraintBottom_toTopOf="@+id/thirdCardView"
+                app:layout_constraintEnd_toEndOf="@+id/thirdCardView"
+                app:layout_constraintStart_toStartOf="@+id/thirdCardView"
+                app:layout_constraintTop_toTopOf="@+id/thirdCardView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
