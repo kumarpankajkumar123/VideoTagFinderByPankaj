@@ -41,7 +41,7 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 
 
     EditText inputVideoUrl;
-    Button submit;
+    Button submit,clear;
     RecyclerView recyclerView;
     TagsAdaptor tagsAdaptor;
     ProgressDialog progressDialog;
@@ -56,6 +56,7 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 
         inputVideoUrl = findViewById(R.id.inputVideoUrl);
         submit = findViewById(R.id.submit);
+        clear = findViewById(R.id.clear);
         recyclerView = findViewById(R.id.videoTags);
 
         copy = findViewById(R.id.copy);
@@ -67,6 +68,15 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         progressDialog.setCancelable(false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputVideoUrl.setText("");
+                recyclerView.setVisibility(View.GONE);
+                Toast.makeText(VideoTagsGet.this,"Cleared url",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +107,83 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 
             }
         });
+
+//        copy.setOnClickListener(v -> {
+//            Set<String> selectedTags = tagsAdaptor.getSelectedTags();
+//            if (!selectedTags.isEmpty()) {
+//                copyToClipboard(String.join(", ", selectedTags));
+//                Log.e("copy tags",":="+selectedTags);
+//                Toast.makeText(this, "Copied selected tags", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Toast.makeText(this, "No tags selected", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        copy.setOnClickListener(view -> {
+            if (tagsAdaptor == null || tagsAdaptor.getItemCount() == 0) {
+                // No data loaded, show toast message
+                Toast.makeText(VideoTagsGet.this, "No data to copy. Please enter a valid URL and load the tags.", Toast.LENGTH_SHORT).show();
+            } else {
+                // Logic for copying selected tags goes here
+                Set<String> selectedTags = tagsAdaptor.getSelectedTags();
+                if (selectedTags.isEmpty()) {
+                    Toast.makeText(VideoTagsGet.this, "Please select tags to copy", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Proceed with copying the selected tags
+                    copyToClipboard(selectedTags.toString());
+                    Toast.makeText(VideoTagsGet.this, "Selected tags copied", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+//        selectAll.setOnClickListener(v -> {
+//            tagsAdaptor.selectAllTags();
+////            Log.e("All tags selected",":=");
+//            Toast.makeText(this, "All tags selected", Toast.LENGTH_SHORT).show();
+//        });
+
+        selectAll.setOnClickListener(view -> {
+            if (tagsAdaptor != null && tagsAdaptor.getItemCount() > 0) {
+                tagsAdaptor.selectAllTags();
+                Toast.makeText(VideoTagsGet.this, "All tags selected", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(VideoTagsGet.this, "No tags to select. Please load tags first.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        copyAll.setOnClickListener(v -> {
+            if (tagsAdaptor != null && tagsAdaptor.getItemCount() > 0) { // Check if tags are available
+                tagsAdaptor.selectAllTags(); // Select all tags first
+                Set<String> allTags = tagsAdaptor.getSelectedTags(); // Get the selected tags
+
+                if (!allTags.isEmpty()) { // Check if any tags were selected
+                    copyToClipboard(String.join(", ", allTags)); // Copy tags to clipboard
+                    Log.e("All copied tags", ":= " + allTags); // Log copied tags
+                    Toast.makeText(this, "Copied all tags", Toast.LENGTH_SHORT).show(); // Show success toast
+                } else {
+                    Log.e("No tags selected to copy", ":= " + allTags); // Log empty tags case
+                    Toast.makeText(this, "No tags available to copy", Toast.LENGTH_SHORT).show(); // Show error toast
+                }
+            } else {
+                // Handle case where there are no tags loaded
+                Log.e("No tags loaded", ":= No tags to copy");
+                Toast.makeText(this, "No tags available to copy. Please load tags first.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        copyAll.setOnClickListener(view -> {
+//            if (tagsAdaptor == null || tagsAdaptor.getItemCount() == 0) {
+//                Toast.makeText(VideoTagsGet.this, "No data to copy. Please load tags first.", Toast.LENGTH_SHORT).show();
+//            } else {
+//                Set<String> allTags = tagsAdaptor.getSelectedTags();
+//                copyToClipboard(allTags.toString());
+//                Toast.makeText(VideoTagsGet.this, "All tags copied", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+    }
+    private void copyToClipboard(String text) {
+        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(VideoTagsGet.this.CLIPBOARD_SERVICE);
+        android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
+        clipboard.setPrimaryClip(clip);
     }
 
     public boolean IsValidUrl(String url) {

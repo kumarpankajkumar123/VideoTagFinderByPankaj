@@ -55,7 +55,7 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
         holder.tags.setText(tags);
 
 //        holder.checkbox.setChecked(tagSelectionMap.get(tags));
-
+        holder.checkbox.setOnCheckedChangeListener(null);
         holder.checkbox.setChecked(selectedTags.contains(tags));
 
         holder.itemView.setOnClickListener(v -> {
@@ -69,7 +69,7 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
             holder.checkbox.setChecked(selectedTags.contains(tags));
         });
 
-        holder.checkbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        holder.checkbox.setOnCheckedChangeListener((checkbox, isChecked) -> {
             if (isChecked) {
                 selectedTags.add(tags);
             } else {
@@ -89,6 +89,18 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
     public Set<String> getSelectedTags() {
         return selectedTags;
     }
+
+    public void selectAllTags() {
+        selectedTags.clear();
+        selectedTags.addAll(taglist);
+        notifyDataSetChanged();
+    }
+
+    public void clearSelectedTags() {
+        selectedTags.clear();
+        notifyDataSetChanged();
+    }
+
 
     public class myViewHolder extends RecyclerView.ViewHolder {
 
