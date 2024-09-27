@@ -53,6 +53,7 @@
         android:id="@+id/imageCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="@+id/cardM"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/cardM">
@@ -60,6 +61,7 @@
             android:id="@+id/imageD"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@color/black" />
+            android:scaleType="fitXY"
+            android:src="#7A5757" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

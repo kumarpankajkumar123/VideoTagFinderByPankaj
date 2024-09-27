@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pankajdemo.ModalOfApi.TagsAdaptor;
 import com.example.pankajdemo.ModalOfApi.VideoTagResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -53,6 +54,8 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 
     private long backPressedTime;
     private Toast backToast;
+
+    List<VideoTagResponse.Items> item;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,8 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Loading...");
         progressDialog.setCancelable(false);
+
+//        item = new ArrayList<>();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -272,64 +277,62 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         getResponse.enqueue(new Callback<VideoTagResponse>() {
             @Override
             public void onResponse(Call<VideoTagResponse> call, Response<VideoTagResponse> response) {
-                if (response.code() == 200 && response.isSuccessful()) {
-                    progressDialog.dismiss();
-                    VideoTagResponse videoTagResponse = response.body();
-//                    Log.e("themnails",":="+videoTagResponse.getItems().get(0).getSnippet().getThumbnails().getMedium().getUrl());
-                    if (videoTagResponse != null && videoTagResponse.getItems().size() > 0) {
-                        // Get the tags from the response
-                        VideoTagResponse.Items item = videoTagResponse.getItems().get(0);
-
-//                        List<VideoTagResponse.Items> items = videoTagResponse.getItems();
-
-                        if (item.getSnippet() != null && item.getSnippet().getTags() != null) {
-                            List<String> tags = item.getSnippet().getTags();
-                            // Set the adapter with the tags list
-                            tagsAdaptor = new TagsAdaptor(tags,VideoTagsGet.this);
-                            recyclerView.setAdapter(tagsAdaptor);
-                        }
-//                        if(items != null ){
-//                            tagsAdaptor = new TagsAdaptor(getApplicationContext(),items,VideoTagsGet.this);
+//                if (response.code() == 200 && response.isSuccessful()) {
+//                    progressDialog.dismiss();
+//                    VideoTagResponse videoTagResponse = response.body();
+////                    Log.e("themnails",":="+videoTagResponse.getItems().get(0).getSnippet().getThumbnails().getMedium().getUrl());
+//                    if (videoTagResponse != null && videoTagResponse.getItems().size() > 0) {
+//                        // Get the tags from the response
+//                        VideoTagResponse.Items item = videoTagResponse.getItems().get(0);
+//
+////                        List<VideoTagResponse.Items> items = videoTagResponse.getItems();
+//
+//                        if (item.getSnippet() != null && item.getSnippet().getTags() != null) {
+//                            List<String> tags = item.getSnippet().getTags();
+//                            // Set the adapter with the tags list
+//                            tagsAdaptor = new TagsAdaptor(tags,VideoTagsGet.this);
 //                            recyclerView.setAdapter(tagsAdaptor);
 //                        }
-                        else {
-                            recyclerView.setVisibility(View.GONE);
-                            Toast.makeText(VideoTagsGet.this, "no data available"+item.getSnippet().getTags(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(VideoTagsGet.this, "No tags found", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(VideoTagsGet.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
-                }
-
-//                if (response.code() == 200 && response.isSuccessful()) {
-//                    VideoTagResponse videoTagResponse = response.body();
-//                    if (videoTagResponse != null && videoTagResponse.getItems().size() > 0) {
-//                        // Check if the index you are accessing exists in the list
-//                        if (videoTagResponse.getItems().size() > 1) {
-//                            // Access the second element (index 1) safely
-//                            VideoTagResponse.Items item = videoTagResponse.getItems().get(1);
-//                            if (item.getSnippet() != null && item.getSnippet().getTags() != null) {
-//                                List<String> tags = item.getSnippet().getTags();
-//                                // Set the adapter with the tags list
-//                                tagsAdaptor = new TagsAdaptor(tags);
-//                                recyclerView.setAdapter(tagsAdaptor);
-//                            }
-//                        } else {
-//                            // Handle the case where the list has fewer than 2 elements
-//                            Log.e("VideoTagsGet", "List has fewer than 2 items");
-//                            Toast.makeText(VideoTagsGet.this, "Not enough items in the response", Toast.LENGTH_SHORT).show();
+////                        if(items != null ){
+////                            tagsAdaptor = new TagsAdaptor(getApplicationContext(),items,VideoTagsGet.this);
+////                            recyclerView.setAdapter(tagsAdaptor);
+////                        }
+//                        else {
+//                            recyclerView.setVisibility(View.GONE);
+//                            Toast.makeText(VideoTagsGet.this, "no data available"+item.getSnippet().getTags(), Toast.LENGTH_SHORT).show();
 //                        }
-//                    }
-//                    else {
+//                    } else {
+//                        progressDialog.dismiss();
 //                        Toast.makeText(VideoTagsGet.this, "No tags found", Toast.LENGTH_SHORT).show();
 //                    }
 //                } else {
+//                    progressDialog.dismiss();
 //                    Toast.makeText(VideoTagsGet.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
 //                }
+
+                if (response.code() == 200 && response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    VideoTagResponse videoTagResponse = response.body();
+                    if (videoTagResponse != null && videoTagResponse.getItems().size() > 0) {
+//                        List<VideoTagResponse.Items>
+                                item = videoTagResponse.getItems();
+
+                        if (item.size() > 0) {
+                            // Set the adapter with the tags list
+                            tagsAdaptor = new TagsAdaptor(VideoTagsGet.this,item,VideoTagsGet.this);
+                            recyclerView.setAdapter(tagsAdaptor);
+                        } else {
+                            // Handle the case where the list has fewer than 2 elements
+                            Log.e("VideoTagsGet", "List has fewer than 2 items");
+                            Toast.makeText(VideoTagsGet.this, "Not enough items in the response", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(VideoTagsGet.this, "No tags found", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(VideoTagsGet.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
