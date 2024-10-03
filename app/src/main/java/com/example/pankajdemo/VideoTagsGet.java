@@ -3,6 +3,8 @@ package com.example.pankajdemo;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,7 +41,7 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 
     String MY_KEY = "AIzaSyCrdo85_ezkyP0tMC-rC52Hlpr2qPjD7E8";
     //    private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|v\\/)?)([\\w\\-]+)(\\S+)?$";
-    private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu\\.be))(\\/((watch\\?v=|embed\\/|v\\/|shorts\\/)?([\\w\\-]{11}))(\\S*)?)?$";
+    private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu\\.be))(\\/((watch\\?v=|embed\\/|v\\/|shorts\\/|live\\/)?([\\w\\-]{11}))(\\S*)?)?$";
 //    private static final String YOUTUBE_URL_PATTERNBOTH = "^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/.*[?&]v=|youtu\\.be\\/|youtube\\.com\\/shorts\\/)?([\\w\\-]{11})(?:[\\s\\S]*)?$";
 
 
@@ -62,6 +64,15 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_video_tags_get);
 
+        PackageManager manager = VideoTagsGet.this.getPackageManager();
+
+        Log.e("PackageManager",":="+manager);
+        try {
+            PackageInfo info = manager.getPackageInfo(VideoTagsGet.this.getPackageName(),manager.GET_ACTIVITIES);
+
+        } catch (PackageManager.NameNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         inputVideoUrl = findViewById(R.id.inputVideoUrl);
         submit = findViewById(R.id.submit);
         clear = findViewById(R.id.clear);
@@ -76,9 +87,7 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         progressDialog.setCancelable(false);
 
 //        item = new ArrayList<>();
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +96,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
                 Toast.makeText(VideoTagsGet.this,"Cleared url",Toast.LENGTH_SHORT).show();
             }
         });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +132,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 
             }
         });
-
 //        copy.setOnClickListener(v -> {
 //            Set<String> selectedTags = tagsAdaptor.getSelectedTags();
 //            if (!selectedTags.isEmpty()) {
@@ -135,7 +142,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 //                Toast.makeText(this, "No tags selected", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-
         copy.setOnClickListener(view -> {
             if (tagsAdaptor == null || tagsAdaptor.getItemCount() == 0) {
                 // No data loaded, show toast message
@@ -152,13 +158,11 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
                 }
             }
         });
-
 //        selectAll.setOnClickListener(v -> {
 //            tagsAdaptor.selectAllTags();
 ////            Log.e("All tags selected",":=");
 //            Toast.makeText(this, "All tags selected", Toast.LENGTH_SHORT).show();
 //        });
-
         selectAll.setOnClickListener(view -> {
             if (tagsAdaptor != null && tagsAdaptor.getItemCount() > 0) {
                 tagsAdaptor.selectAllTags();
@@ -186,7 +190,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
                 Toast.makeText(this, "No tags available to copy. Please load tags first.", Toast.LENGTH_SHORT).show();
             }
         });
-
 //        copyAll.setOnClickListener(view -> {
 //            if (tagsAdaptor == null || tagsAdaptor.getItemCount() == 0) {
 //                Toast.makeText(VideoTagsGet.this, "No data to copy. Please load tags first.", Toast.LENGTH_SHORT).show();
@@ -202,7 +205,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Text", text);
         clipboard.setPrimaryClip(clip);
     }
-
     public boolean IsValidUrl(String url) {
 
         if (TextUtils.isEmpty(url)) {
@@ -248,7 +250,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 //            return null;
 //        }
 //    }
-
     public String getVideoIdFromUrl(String url) {
         Log.e("getid methods", ":= call hua");
 
@@ -264,12 +265,8 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
             return null;
         }
     }
-
-
     public void fetchVideoTags(String id) {
-
         progressDialog.show();
-
         Log.e("getTags methods ", ";= call hua");
         Apiresponse apiresponse = RetrofitDataClass.getRetrofit().create(Apiresponse.class);
         Call<VideoTagResponse> getResponse = apiresponse.getVideoDetails("snippet", id, MY_KEY);

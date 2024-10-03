@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <translate xmlns:android="http://schemas.android.com/apk/res/android"
+    <scale
         android:duration="2000"
-        android:fromYDelta="-80%"
-        android:toYDelta="80%"
-        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+        android:fillAfter="true"
+        android:fromXScale="0.1"
+        android:fromYScale="0.1"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+
+    <!-- Rotate Animation: 360-degree rotation -->
+    <rotate
+        android:duration="2000"
+        android:fillAfter="true"
+        android:fromDegrees="0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toDegrees="360" />
 
 </set>
