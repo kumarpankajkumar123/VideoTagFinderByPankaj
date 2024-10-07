@@ -1,30 +1,36 @@
 package com.example.pankajdemo.ModalOfApi;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.example.pankajdemo.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> {
+
 
     Context context;
     List<String> taglist;
@@ -109,6 +115,7 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
                 } else {
                     Glide.with(context)
                             .load(thumbnailUrl)
+                            .placeholder(R.drawable.person_new)
                             .into(holder.imageD);
                 }
                 break;  // We've found the correct item, no need to keep looping
@@ -140,6 +147,32 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
 //            }
 //            holder.checkbox.setChecked(selectedTags.contains(tag));
 //        });
+
+        holder.imageD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (VideoTagResponse.Items item : videoItems) {
+                    List<String> tags = item.getSnippet().getTags();
+                    if (tags != null && tags.contains(tag)) {
+                        String thumbnailUrl1 = item.getSnippet().getThumbnails().getMedium().getUrl();
+                        String tittle = item.getSnippet().getTittle().toString();
+                        Log.e("the tittle",""+tittle);
+                        if (thumbnailUrl1.isEmpty()) {
+                            holder.imageD.setVisibility(View.GONE);
+                            Toast.makeText(context, "url not found", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(tittle.isEmpty()){
+                            Toast.makeText(context, "tittle is not found", Toast.LENGTH_SHORT).show();
+                        }else {
+                            Log.e("the url",""+thumbnailUrl1);
+                            Log.e("the tittle",""+tittle);
+                            showZoomableImageDialog(thumbnailUrl1,tittle);
+                        }
+                        break;  // We've found the correct item, no need to keep looping
+                    }
+                }
+            }
+        });
 
         holder.checkbox.setOnCheckedChangeListener((checkbox, isChecked) -> {
             if (isChecked) {
@@ -211,8 +244,28 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
             super(itemView);
             tags = itemView.findViewById(R.id.tags);
             checkbox = itemView.findViewById(R.id.checkbox);
-            imageD = itemView.findViewById(R.id.imageD);
+            imageD = itemView.findViewById(R.id.circularImage);
             cardM = itemView.findViewById(R.id.cardM);
         }
+    }
+
+    private void showZoomableImageDialog(String imageUrl,String tittle) {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_image_zommable);
+        TouchImageView imageView = dialog.findViewById(R.id.zoomable_image);
+        TextView textView = dialog.findViewById(R.id.tittle);
+
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+
+        Glide.with(context)
+                .load(imageUrl)
+                .apply(new RequestOptions()
+                        .override(Target.SIZE_ORIGINAL)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(imageView);
+        textView.setText(tittle);
+        dialog.show();
     }
 }

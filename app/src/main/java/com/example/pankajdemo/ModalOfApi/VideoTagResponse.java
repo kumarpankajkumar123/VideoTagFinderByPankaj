@@ -29,6 +29,15 @@ public class VideoTagResponse {
     public  class Snippet{
         private Thumbnails thumbnails;
         List<String> tags;
+        String title;
+
+        public String getTittle() {
+            return title;
+        }
+
+        public void setTittle(String tittle) {
+            this.title = tittle;
+        }
 
         public List<String> getTags() {
             return tags;

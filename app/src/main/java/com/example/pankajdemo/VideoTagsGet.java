@@ -86,6 +86,7 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         progressDialog.setTitle("Loading...");
         progressDialog.setCancelable(false);
 
+        recyclerView.setVisibility(View.GONE);
 //        item = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         clear.setOnClickListener(new View.OnClickListener() {
