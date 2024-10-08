@@ -18,6 +18,7 @@ public class TouchImageView extends androidx.appcompat.widget.AppCompatImageView
     private static final int DRAG = 1;
     private static final int ZOOM = 2;
     private int mode = NONE;
+
     // Remember some things for zooming
     private final PointF last = new PointF();
     private final PointF start = new PointF();

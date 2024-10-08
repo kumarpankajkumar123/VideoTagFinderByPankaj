@@ -1,14 +1,25 @@
 package com.example.pankajdemo.ModalOfApi;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,21 +59,10 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
 
         void onTagUnselected(String tag);
     }
-//    public TagsAdaptor(List<String> taglist,TagSelectionListener tagSelectionListener) {
-////        this.context = context;
-//        this.taglist = taglist;
-////        for (String tag : taglist) {
-////            tagSelectionMap.put(tag, false); // Initially, no tags are selected
-////        }
-//        this.tagSelectionListener = tagSelectionListener;
-//    }
 
     public TagsAdaptor(Context context, List<VideoTagResponse.Items> videoItems, TagSelectionListener tagSelectionListener) {
         this.context = context;
         this.videoItems = videoItems;
-//                for (String tag : taglist) {
-//            tagSelectionMap.put(tag, false); // Initially, no tags are selected
-//        }
         for (VideoTagResponse.Items item : videoItems) {
             List<String> tags = item.getSnippet().getTags();
             if (tags != null) {
@@ -91,19 +91,6 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
         holder.tags.setText(tag);
 
 
-//        if (tagsN != null && !tagsN.isEmpty()) {
-//            // Join tags into a single string separated by commas or any other delimiter
-//            String tagsString = String.join(", ", tagsN);
-//            holder.tags.setText(tagsString);
-//        } else {
-//            holder.tags.setText("No tags available");
-//        }
-//        if (tagsN != null && !tagsN.isEmpty()) {
-////            holder.tags.setText(tagsN.toString().replaceAll("[\\[\\]]", ""));
-//
-//        } else {
-//            holder.tags.setText("No tags available");
-//        }
 
         for (VideoTagResponse.Items item : videoItems) {
             List<String> tags = item.getSnippet().getTags();
@@ -118,11 +105,10 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
                             .placeholder(R.drawable.person_new)
                             .into(holder.imageD);
                 }
-                break;  // We've found the correct item, no need to keep looping
+                break;
             }
         }
 
-//        holder.checkbox.setChecked(tagSelectionMap.get(tags));
 
         holder.checkbox.setOnCheckedChangeListener(null);
         holder.checkbox.setChecked(selectedTags.contains(tag));
@@ -136,17 +122,6 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
             }
             holder.checkbox.setChecked(selectedTags.contains(tag));
         });
-
-//        holder.itemView.setOnClickListener(v -> {
-//            if (selectedTags.contains(tag)) {
-//                selectedTags.remove(tag);
-//                tagSelectionListener.onTagUnselected(tag);
-//            } else {
-//                selectedTags.add(tag);
-//                tagSelectionListener.onTagSelected(tag);
-//            }
-//            holder.checkbox.setChecked(selectedTags.contains(tag));
-//        });
 
         holder.imageD.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,41 +157,12 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
             }
         });
     }
-
-
-//        holder.checkbox.setOnCheckedChangeListener(null);
-//        holder.checkbox.setChecked(selectedTags.contains(tags));
-//
-//
-//        holder.itemView.setOnClickListener(v -> {
-//            if (selectedTags.contains(tags)) {
-//                selectedTags.remove(tags);
-//                tagSelectionListener.onTagUnselected(tags);
-//            } else {
-//                selectedTags.add(tags);
-//                tagSelectionListener.onTagSelected(tags);
-//            }
-//            holder.checkbox.setChecked(selectedTags.contains(tags));
-//        });
-//
-//        holder.checkbox.setOnCheckedChangeListener((checkbox, isChecked) -> {
-//            if (isChecked) {
-//                selectedTags.add(tags);
-//            } else {
-//                selectedTags.remove(tags);
-//            }
-//        });
-//    }
-
     @Override
     public int getItemCount() {
 //        return taglist.size();
         return allTags.size();
     }
 
-    //    public Map<String, Boolean> getSelectedTags() {
-//        return tagSelectionMap;
-//    }
     public Set<String> getSelectedTags() {
         return selectedTags;
     }
@@ -254,6 +200,8 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
         dialog.setContentView(R.layout.dialog_image_zommable);
         TouchImageView imageView = dialog.findViewById(R.id.zoomable_image);
         TextView textView = dialog.findViewById(R.id.tittle);
+        Button cancel = dialog.findViewById(R.id.cancel);
+        Button download = dialog.findViewById(R.id.download);
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
@@ -266,6 +214,85 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .into(imageView);
         textView.setText(tittle);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                startImageDownload(context, imageUrl, "youtube");
+            }
+        });
+
         dialog.show();
     }
+    private void startImageDownload(Context context, String imageUrl, String imageName) {
+        // Create a ProgressDialog to show the download progress
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Downloading image...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setCancelable(false);
+        progressDialog.setMax(100);
+        progressDialog.show();
+
+        // Create the request for DownloadManager
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(imageUrl));
+        request.setTitle("Downloading " + imageName);
+        request.setDescription("Downloading in progress...");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, imageName + ".jpg"); // Use ".jpg" extension
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+
+        // Get DownloadManager system service
+        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        long downloadId = downloadManager.enqueue(request);
+
+        // Register a BroadcastReceiver to listen for when the download completes
+        BroadcastReceiver onCompleteReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                if (downloadId == id) {
+                    progressDialog.dismiss(); // Dismiss on success
+                    Toast.makeText(context, "Image downloaded successfully!", Toast.LENGTH_SHORT).show();
+                    context.unregisterReceiver(this); // Unregister the receiver
+                }
+            }
+        };
+
+        // Register the receiver for download complete action
+        context.registerReceiver(onCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+        // Update progress periodically
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                DownloadManager.Query query = new DownloadManager.Query();
+                query.setFilterById(downloadId);
+                Cursor cursor = downloadManager.query(query);
+                if (cursor.moveToFirst()) {
+                    @SuppressLint("Range") int bytesDownloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                    @SuppressLint("Range") int bytesTotal = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                    if (bytesTotal > 0) {
+                        int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
+                        progressDialog.setProgress(progress);
+                    }
+                }
+                cursor.close();
+                if (progressDialog.isShowing()) {
+                    handler.postDelayed(this, 1000); // Repeat every second
+                }
+            }
+        };
+        handler.postDelayed(runnable, 0); // Start the update loop
+    }
 }
+
+
