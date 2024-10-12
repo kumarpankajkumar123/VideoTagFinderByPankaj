@@ -7,6 +7,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MultiPartImage"
-    android:background="#AA00FF">
+    android:background="#039BE5">
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Material Button"
+        app:cornerRadius="11dp"
+        android:elevation="4dp"
+        android:padding="10dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="#EA8F8F"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

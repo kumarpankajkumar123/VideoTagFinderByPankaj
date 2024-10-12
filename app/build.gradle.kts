@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pankajdemo"
+    namespace = "com.example.TagFinder"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.pankajdemo"
+        applicationId = "com.example.TagFinder"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

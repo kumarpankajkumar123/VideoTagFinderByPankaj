@@ -1,4 +1,4 @@
-package com.example.pankajdemo;
+package com.example.TagFinder;
 
 public class ProductModal {
 

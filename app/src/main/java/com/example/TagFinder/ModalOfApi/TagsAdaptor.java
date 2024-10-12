@@ -1,4 +1,4 @@
-package com.example.pankajdemo.ModalOfApi;
+package com.example.TagFinder.ModalOfApi;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -32,7 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-import com.example.pankajdemo.R;
+import com.example.TagFinder.R;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
@@ -247,7 +247,7 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
         request.setTitle("Downloading " + imageName);
         request.setDescription("Downloading in progress...");
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, imageName + ".jpg"); // Use ".jpg" extension
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); // Notify and remove on complete
 
         // Get DownloadManager system service
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
@@ -258,16 +258,28 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
             @Override
             public void onReceive(Context context, Intent intent) {
                 long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                Log.d("DownloadReceiver", "Download ID: " + id + ", Expected ID: " + downloadId);
                 if (downloadId == id) {
-                    progressDialog.dismiss(); // Dismiss on success
+                    // Download completed
+                    progressDialog.dismiss(); // Dismiss the ProgressDialog
                     Toast.makeText(context, "Image downloaded successfully!", Toast.LENGTH_SHORT).show();
-                    context.unregisterReceiver(this); // Unregister the receiver
+                    Log.d("DownloadReceiver", "ProgressDialog dismissed");
+
+                    // Unregister the receiver to avoid memory leaks
+                    context.unregisterReceiver(this);
                 }
             }
         };
 
-        // Register the receiver for download complete action
-        context.registerReceiver(onCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        // Register the receiver for download complete action with proper security flag for Android 12+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            context.registerReceiver(onCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE), Context.RECEIVER_NOT_EXPORTED);
+            Toast.makeText(context, "Image downloaded successfully!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        } else {
+            context.registerReceiver(onCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+            progressDialog.dismiss();
+        }
 
         // Update progress periodically
         Handler handler = new Handler();
@@ -277,15 +289,16 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
                 DownloadManager.Query query = new DownloadManager.Query();
                 query.setFilterById(downloadId);
                 Cursor cursor = downloadManager.query(query);
-                if (cursor.moveToFirst()) {
+                if (cursor != null && cursor.moveToFirst()) {
                     @SuppressLint("Range") int bytesDownloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
                     @SuppressLint("Range") int bytesTotal = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
                     if (bytesTotal > 0) {
                         int progress = (int) ((bytesDownloaded * 100L) / bytesTotal);
                         progressDialog.setProgress(progress);
                     }
+                    cursor.close(); // Close the cursor after using it
                 }
-                cursor.close();
+
                 if (progressDialog.isShowing()) {
                     handler.postDelayed(this, 1000); // Repeat every second
                 }
@@ -293,6 +306,9 @@ public class TagsAdaptor extends RecyclerView.Adapter<TagsAdaptor.myViewHolder> 
         };
         handler.postDelayed(runnable, 0); // Start the update loop
     }
+
+
+
 }
 
 

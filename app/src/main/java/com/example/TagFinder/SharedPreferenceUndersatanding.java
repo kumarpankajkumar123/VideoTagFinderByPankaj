@@ -1,17 +1,11 @@
-package com.example.pankajdemo;
+package com.example.TagFinder;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.pankajdemo.databinding.ActivitySharedPreferenceUndersatandingBinding;
+import com.example.TagFinder.databinding.ActivitySharedPreferenceUndersatandingBinding;
 
 public class SharedPreferenceUndersatanding extends AppCompatActivity {
 

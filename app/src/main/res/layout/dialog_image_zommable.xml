@@ -23,7 +23,7 @@
             android:fontFamily="@font/amaranth_bold"
             android:textSize="25sp"/>
 
-        <com.example.pankajdemo.ModalOfApi.TouchImageView
+        <com.example.TagFinder.ModalOfApi.TouchImageView
             android:id="@+id/zoomable_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

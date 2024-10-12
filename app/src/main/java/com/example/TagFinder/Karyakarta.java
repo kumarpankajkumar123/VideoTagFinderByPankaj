@@ -1,12 +1,9 @@
-package com.example.pankajdemo;
+package com.example.TagFinder;
 
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class Karyakarta extends AppCompatActivity {

@@ -1,9 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.PankajDemo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.PankajDemo" parent="Theme.MaterialComponents.Light.NoActionBar">
+
     </style>
 
-    <style name="Theme.PankajDemo" parent="Base.Theme.PankajDemo" />
+    <style name="Theme.PankajDemo" parent="Theme.MaterialComponents.Light.NoActionBar">
+
+    </style>
+
+    <style name="AppTheme.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+    </style>
+
+    <!-- Transparent BottomNavigationView -->
+    <style name="TransparentBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+    </style>
+
 </resources>

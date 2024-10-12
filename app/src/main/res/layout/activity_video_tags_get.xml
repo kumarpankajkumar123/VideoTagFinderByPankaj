@@ -7,17 +7,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VideoTagsGet"
-    android:background="#DD2C00">
+    android:background="@color/colorBackground">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="change theme"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/heading"
+        android:fontFamily="@font/oswald_medium"
+        app:layout_constraintEnd_toStartOf="@+id/switcher"
+        app:layout_constraintTop_toTopOf="@+id/switcher"
+        app:layout_constraintBottom_toBottomOf="@+id/switcher"/>
+
+    <Switch
+        android:id="@+id/switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/switch_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/inputVideoUrl"/>
 
     <EditText
         android:id="@+id/inputVideoUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:padding="10dp"
         android:elevation="5dp"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:hint="enter video/short url"
         android:background="@drawable/button_login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,13 +59,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputVideoUrl">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="submit"
-            android:backgroundTint="#2979FF"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/submit"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:textSize="15sp"
@@ -52,13 +78,16 @@
             app:layout_constraintTop_toBottomOf="@+id/inputVideoUrl" />
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="clear"
-            android:backgroundTint="#1A237E"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp"
+            android:backgroundTint="@color/clear"
             android:layout_weight="1"
             android:textSize="15sp"
             android:elevation="3dp"
@@ -76,7 +105,8 @@
         android:layout_height="wrap_content"
         android:text="All Tags"
         android:padding="5dp"
-        android:textColor="@color/white"
+        android:fontFamily="@font/londrina_solid"
+        android:textColor="@color/heading"
         android:textSize="20sp"
         android:layout_marginStart="5dp"
         android:textStyle="bold"
@@ -112,7 +142,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@drawable/button_login"
-          android:fontFamily="@font/roboto"
+          android:fontFamily="@font/cantora_one"
           android:gravity="center"
           android:padding="10dp"
           android:text="copy"
@@ -128,7 +158,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@drawable/button_login"
-          android:fontFamily="@font/roboto"
+          android:fontFamily="@font/cantora_one"
           android:gravity="center"
           android:padding="10dp"
           android:text="copy all"
@@ -146,7 +176,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:background="@drawable/button_login"
-          android:fontFamily="@font/roboto"
+          android:fontFamily="@font/cantora_one"
           android:gravity="center"
           android:padding="10dp"
           android:text="select all"
@@ -155,9 +185,7 @@
           android:textSize="20sp"
           app:layout_constraintBottom_toBottomOf="@+id/copyAll"
           app:layout_constraintEnd_toEndOf="parent"
-
           app:layout_constraintTop_toTopOf="@+id/copyAll" />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

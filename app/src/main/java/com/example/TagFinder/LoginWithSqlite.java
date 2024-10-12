@@ -1,4 +1,4 @@
-package com.example.pankajdemo;
+package com.example.TagFinder;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +9,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.pankajdemo.ModalOfApi.SqliteDataHelper;
+import com.example.TagFinder.ModalOfApi.SqliteDataHelper;
 
 public class LoginWithSqlite extends AppCompatActivity {
 

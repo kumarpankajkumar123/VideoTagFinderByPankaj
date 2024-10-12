@@ -1,6 +1,6 @@
-package com.example.pankajdemo;
+package com.example.TagFinder;
 
-import com.example.pankajdemo.ModalOfApi.VideoTagResponse;
+import com.example.TagFinder.ModalOfApi.VideoTagResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

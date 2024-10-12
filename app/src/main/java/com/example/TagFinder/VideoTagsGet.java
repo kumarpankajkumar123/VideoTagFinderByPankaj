@@ -1,8 +1,6 @@
-package com.example.pankajdemo;
+package com.example.TagFinder;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -11,23 +9,21 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pankajdemo.ModalOfApi.TagsAdaptor;
-import com.example.pankajdemo.ModalOfApi.VideoTagResponse;
+import com.example.TagFinder.ModalOfApi.TagsAdaptor;
+import com.example.TagFinder.ModalOfApi.VideoTagResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -40,11 +36,10 @@ import retrofit2.Response;
 public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSelectionListener {
 
     String MY_KEY = "AIzaSyCrdo85_ezkyP0tMC-rC52Hlpr2qPjD7E8";
-    //    private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|v\\/)?)([\\w\\-]+)(\\S+)?$";
     private static final String YOUTUBE_URL_PATTERN = "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube\\.com|youtu\\.be))(\\/((watch\\?v=|embed\\/|v\\/|shorts\\/|live\\/)?([\\w\\-]{11}))(\\S*)?)?$";
-//    private static final String YOUTUBE_URL_PATTERNBOTH = "^(?:https?:\\/\\/)?(?:www\\.)?(?:youtube\\.com\\/.*[?&]v=|youtu\\.be\\/|youtube\\.com\\/shorts\\/)?([\\w\\-]{11})(?:[\\s\\S]*)?$";
 
 
+    Switch switcher;
     EditText inputVideoUrl;
     Button submit,clear;
     RecyclerView recyclerView;
@@ -65,7 +60,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         setContentView(R.layout.activity_video_tags_get);
 
         PackageManager manager = VideoTagsGet.this.getPackageManager();
-
         Log.e("PackageManager",":="+manager);
         try {
             PackageInfo info = manager.getPackageInfo(VideoTagsGet.this.getPackageName(),manager.GET_ACTIVITIES);
@@ -73,6 +67,9 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        switcher = findViewById(R.id.switcher);
+
         inputVideoUrl = findViewById(R.id.inputVideoUrl);
         submit = findViewById(R.id.submit);
         clear = findViewById(R.id.clear);
@@ -97,6 +94,20 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
                 Toast.makeText(VideoTagsGet.this,"Cleared url",Toast.LENGTH_SHORT).show();
             }
         });
+
+        switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if(b){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -275,38 +286,6 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
         getResponse.enqueue(new Callback<VideoTagResponse>() {
             @Override
             public void onResponse(Call<VideoTagResponse> call, Response<VideoTagResponse> response) {
-//                if (response.code() == 200 && response.isSuccessful()) {
-//                    progressDialog.dismiss();
-//                    VideoTagResponse videoTagResponse = response.body();
-////                    Log.e("themnails",":="+videoTagResponse.getItems().get(0).getSnippet().getThumbnails().getMedium().getUrl());
-//                    if (videoTagResponse != null && videoTagResponse.getItems().size() > 0) {
-//                        // Get the tags from the response
-//                        VideoTagResponse.Items item = videoTagResponse.getItems().get(0);
-//
-////                        List<VideoTagResponse.Items> items = videoTagResponse.getItems();
-//
-//                        if (item.getSnippet() != null && item.getSnippet().getTags() != null) {
-//                            List<String> tags = item.getSnippet().getTags();
-//                            // Set the adapter with the tags list
-//                            tagsAdaptor = new TagsAdaptor(tags,VideoTagsGet.this);
-//                            recyclerView.setAdapter(tagsAdaptor);
-//                        }
-////                        if(items != null ){
-////                            tagsAdaptor = new TagsAdaptor(getApplicationContext(),items,VideoTagsGet.this);
-////                            recyclerView.setAdapter(tagsAdaptor);
-////                        }
-//                        else {
-//                            recyclerView.setVisibility(View.GONE);
-//                            Toast.makeText(VideoTagsGet.this, "no data available"+item.getSnippet().getTags(), Toast.LENGTH_SHORT).show();
-//                        }
-//                    } else {
-//                        progressDialog.dismiss();
-//                        Toast.makeText(VideoTagsGet.this, "No tags found", Toast.LENGTH_SHORT).show();
-//                    }
-//                } else {
-//                    progressDialog.dismiss();
-//                    Toast.makeText(VideoTagsGet.this, "Failed to retrieve data", Toast.LENGTH_SHORT).show();
-//                }
 
                 if (response.code() == 200 && response.isSuccessful()) {
                     progressDialog.dismiss();

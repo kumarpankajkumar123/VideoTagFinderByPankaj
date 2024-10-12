@@ -1,4 +1,4 @@
-package com.example.pankajdemo.ModalOfApi;
+package com.example.TagFinder.ModalOfApi;
 
 import android.content.ContentValues;
 import android.content.Context;
