@@ -24,20 +24,15 @@ import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity {
 
-ActivityMainBinding binding;
+    ActivityMainBinding binding;
     private static final int PICK_IMAGE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,13 +41,12 @@ ActivityMainBinding binding;
             }
         });
 
-      getResponse();
-
+        getResponse();
     }
 
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent,PICK_IMAGE);
+        startActivityForResult(galleryIntent, PICK_IMAGE);
     }
 
     @Override
@@ -73,18 +67,17 @@ ActivityMainBinding binding;
 
     private void getResponse() {
 
-        ProductModal productModal = new ProductModal("test product",13.5,"lorem ipsum set","electronic");
+        ProductModal productModal = new ProductModal("test product", 13.5, "lorem ipsum set", "electronic");
         Apiresponse apiresponse = RetrofitDataClass.getRetrofit().create(Apiresponse.class);
 
-        Call<ProductModal> modalCall = apiresponse.updateProduct(1,productModal);
+        Call<ProductModal> modalCall = apiresponse.updateProduct(1, productModal);
 
-        Log.e("request data",":-"+modalCall.request());
+        Log.e("request data", ":-" + modalCall.request());
 
         binding.category.setText(productModal.getCategory());
         binding.description.setText(productModal.description);
         binding.title.setText(productModal.getTitle());
         binding.price.setText((String.valueOf(productModal.getPrice())));
-
 
     }
 

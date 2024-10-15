@@ -236,32 +236,8 @@ public class VideoTagsGet extends AppCompatActivity implements TagsAdaptor.TagSe
 //        Pattern pattern = Pattern.compile(YOUTUBE_URL_PATTERNNEW);
         return pattern.matcher(url).matches();
     }
-//    public boolean isYouTubeVideoUrl(String url){
-//        Pattern pattern = Pattern.compile(YOUTUBE_VIDEO_URL_PATTERN);
-//        Matcher matcher = pattern.matcher(url);
-//        return matcher.matches();
-//    }
-//    public boolean isYouTubeShortsUrl(String url){
-//        Pattern pattern = Pattern.compile(YOUTUBE_SHORTS_URL_PATTERN);
-//        Matcher matcher = pattern.matcher(url);
-//        return matcher.matches();
-//    }
 
-//    public String getVideoIdFromUrl(String url) {
-//
-//        Log.e("getid methods", ":= call hua");
-//
-//        String regex = "v=([a-zA-Z0-9_-]{11})";
-//        Pattern pattern = Pattern.compile(regex);
-//        Matcher matcher = pattern.matcher(url);
-//        if (matcher.find()) {
-//            return matcher.group(1);
-//        } else {
-//            recyclerView.setVisibility(View.GONE);
-////            Toast.makeText(this, "please enter correct url", Toast.LENGTH_SHORT).show();
-//            return null;
-//        }
-//    }
+
     public String getVideoIdFromUrl(String url) {
         Log.e("getid methods", ":= call hua");
 
