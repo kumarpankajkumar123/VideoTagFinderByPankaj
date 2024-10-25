@@ -7,6 +7,9 @@ public class RetrofitDataClass {
 
     private static final String BASE_URL = "https://www.googleapis.com/";
     private static final String BASE_URL1 = "https://cricbuzz-cricket.p.rapidapi.com";
+    private static final String BASE_URL2 = "https://accounts.spotify.com";
+    private static final String BASE_URL3 = "https://api.spotify.com";
+    private static final String BASE_URL4 = "https://api.spotify.com";
     private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit(){
@@ -25,6 +28,29 @@ public class RetrofitDataClass {
                     addConverterFactory(GsonConverterFactory.create()).
                     build();
         }
+        return retrofit;
+    }
+
+    public static Retrofit getToken(){
+        retrofit = new Retrofit.Builder().baseUrl(BASE_URL2)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
+        return retrofit;
+    }
+
+    public static Retrofit getMusicData(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL3).addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return  retrofit;
+    }
+
+    public static Retrofit getAllTracks(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL4)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+
         return retrofit;
     }
 }
