@@ -16,5 +16,3 @@ TagFinder allows users to enter a YouTube video or short URL to view the videoâ€
 - **XML** - UI layout design
 - **YouTube Data API** - Fetching video details
 - **RecyclerView and CardView** - Displaying tags and thumbnails in a list format
-
-
