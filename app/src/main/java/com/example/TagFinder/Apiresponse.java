@@ -1,5 +1,6 @@
 package com.example.TagFinder;
 
+import com.example.TagFinder.ModalOfApi.ForeCastData;
 import com.example.TagFinder.ModalOfApi.GetToken;
 import com.example.TagFinder.ModalOfApi.MatchResponse;
 import com.example.TagFinder.ModalOfApi.MusicResponse;
@@ -51,6 +52,11 @@ public interface Apiresponse {
                                      @Query("include_external") String inex);
     @GET("/v1/playlists/6XbRshpsOibcowLY0dN6Mp/tracks")
     Call<TracksAllResponse> getTracks(@Header("Authorization") String token);
+
+    @GET("forecast.json")
+    Call<ForeCastData> getForest( @Header("x-rapidapi-host") String host,
+            @Header("x-rapidapi-key") String key,
+            @Query("q") String location);
 }
 
 

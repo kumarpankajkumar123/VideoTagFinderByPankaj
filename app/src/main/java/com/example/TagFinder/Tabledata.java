@@ -1,5 +1,6 @@
 package com.example.TagFinder;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -108,10 +109,21 @@ public class Tabledata extends AppCompatActivity {
 //                    .setContentIntent(pendingIntent)
 //                    .build();
 //        }
-
 //        nm.notify(massageId, notification);
 
+        setAlarm();
+
     }
+
+    public void setAlarm(){
+
+        Calendar c = Calendar.getInstance();
+        c.getTimeInMillis();
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//        alarmManager.set(AlarmManager.RTC_WAKEUP,);
+    }
+
 
     // Start date picker dialog
     public void openCalender1() {
@@ -181,6 +193,4 @@ public class Tabledata extends AppCompatActivity {
             }
         }
     }
-
-
 }

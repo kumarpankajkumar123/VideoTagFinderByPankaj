@@ -10,6 +10,7 @@ public class RetrofitDataClass {
     private static final String BASE_URL2 = "https://accounts.spotify.com";
     private static final String BASE_URL3 = "https://api.spotify.com";
     private static final String BASE_URL4 = "https://api.spotify.com";
+    private static final String BASE_URL5 = "https://weatherapi-com.p.rapidapi.com/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit(){
@@ -51,6 +52,13 @@ public class RetrofitDataClass {
                 .baseUrl(BASE_URL4)
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
+        return retrofit;
+    }
+
+    public static Retrofit getTemp(){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL5)
+                .addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit;
     }
 }

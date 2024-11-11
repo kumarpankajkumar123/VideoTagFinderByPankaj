@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DesignActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/smileag"
+            android:scaleType="fitXY"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/splashscreen_background"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/logoag"
+                android:layout_width="121dp"
+                android:layout_height="121dp"
+                android:layout_marginTop="279dp"
+                android:src="@drawable/logoag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/firsttext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOPE FOR"
+                android:textColor="#ffffff"
+                android:textSize="36sp"
+                android:letterSpacing="0.02"
+                android:layout_marginTop="25dp"
+                app:layout_constraintEnd_toEndOf="@+id/logoag"
+                app:layout_constraintStart_toStartOf="@+id/logoag"
+                app:layout_constraintTop_toBottomOf="@+id/logoag" />
+
+            <TextView
+                android:id="@+id/sectext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HUMANITY"
+                android:textColor="#ffffff"
+                android:textSize="36sp"
+                android:layout_marginTop="-5dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/firsttext"
+                app:layout_constraintStart_toStartOf="@+id/firsttext"
+                app:layout_constraintTop_toBottomOf="@+id/firsttext" />
+
+            <TextView
+                android:id="@+id/dec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to \nhope for humanity"
+                android:textColor="#005014"
+                android:textSize="29sp"
+                android:gravity="center"
+                android:lineHeight="33dp"
+                android:layout_marginTop="140dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/logoag"
+                app:layout_constraintStart_toStartOf="@+id/logoag"
+                app:layout_constraintTop_toBottomOf="@+id/sectext" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
